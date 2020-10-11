@@ -3,11 +3,7 @@
     <h1>Список задач</h1>
     <div class="list">
       <h3>Текущие</h3>
-      <div class="item" v-for="todo in uncompletedTodos" v-bind:key="todo.title">
-        <span class="deleteTodo" v-on:click="removeTodo(todo.title)">X</span>
-        <input type="checkbox" v-model="todo.isCompleted">
-        {{ todo.title }}
-      </div>
+      <List v-bind:todos="uncompletedTodos"></List>
       <hr>
       <div class="todos-left">
         <span class="counter" v-if="countUncompleted() === 0">Невыполненных задач нет</span>
@@ -26,17 +22,15 @@
       </transition>
     </div>
     <div class="list">
-      <h3 >Выполненные</h3>
-      <div class="item" v-for="todo in completedTodos" v-bind:key="todo.title">
-        <span class="deleteTodo" v-on:click="removeTodo(todo.title)">X</span>
-        <input type="checkbox" v-model="todo.isCompleted">
-        <span class="done">{{ todo.title }}</span>
-      </div>
+      <h3>Выполненные</h3>
+      <List v-bind:todos="completedTodos"></List>
     </div>
   </div>
 </template>
 
 <script>
+import List from "@/components/List";
+
 export default {
   props: ['todos', 'myMessage', 'show'],
   computed: {
@@ -63,6 +57,9 @@ export default {
     countUncompleted () {
       return this.uncompletedTodos.length;
     },
+  },
+  components: {
+    List
   }
 }
 </script>
@@ -76,12 +73,6 @@ h1, h3 {
   border: 1px solid #ccc;
   margin: 20px 0;
 }
-.item {
-  margin: 10px 0;
-}
-.done {
-  text-decoration: line-through;
-}
 .form {
   margin: 20px 0;
 }
@@ -89,11 +80,6 @@ h1, h3 {
   margin-top: 15px;
   font-style: italic;
   color: gray;
-}
-.deleteTodo {
-  color: red;
-  font-weight: bold;
-  cursor: pointer;
 }
 .warning {
   padding: 7px 0;
