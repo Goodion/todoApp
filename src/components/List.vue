@@ -12,6 +12,11 @@
 export default {
   name: "List",
   props: ['todos'],
+  methods: {
+    removeTodo (title) {
+      this.$emit('remove-todo', title);
+    }
+  }
 }
 </script>
 

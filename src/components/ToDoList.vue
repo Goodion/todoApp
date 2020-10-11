@@ -3,7 +3,7 @@
     <h1>Список задач</h1>
     <div class="list">
       <h3>Текущие</h3>
-      <List v-bind:todos="uncompletedTodos"></List>
+      <List v-bind:todos="uncompletedTodos" v-on:remove-todo="removeTodo"></List>
       <hr>
       <div class="todos-left">
         <span class="counter" v-if="countUncompleted() === 0">Невыполненных задач нет</span>
