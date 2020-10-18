@@ -1,9 +1,10 @@
 <template>
   <div id="to-do-list">
     <h1>Список задач</h1>
+    <p>Всего лайков: {{ overallLikes }}</p>
     <div class="list">
       <h3>Текущие</h3>
-      <List v-bind:todos="uncompletedTodos" v-on:remove-todo="removeTodo"></List>
+      <List v-bind:todos="uncompletedTodos" v-on:remove-todo="removeTodo" v-on:add-like="addLike"></List>
       <hr>
       <div class="todos-left">
         <span class="counter" v-if="countUncompleted() === 0">Невыполненных задач нет</span>
@@ -23,7 +24,7 @@
     </div>
     <div class="list">
       <h3>Выполненные</h3>
-      <List v-bind:todos="completedTodos" v-bind:isDone=true></List>
+      <List v-bind:todos="completedTodos" v-bind:isDone=true v-on:remove-todo="removeTodo" v-on:add-like="addLike"></List>
     </div>
   </div>
 </template>
@@ -32,7 +33,7 @@
 import List from "@/components/List";
 
 export default {
-  props: ['todos', 'myMessage', 'show'],
+  props: ['todos', 'myMessage', 'show', 'overallLikes'],
   computed: {
     uncompletedTodos () {
       return this.todos.filter(todo => !todo.isCompleted);
@@ -56,6 +57,9 @@ export default {
     },
     countUncompleted () {
       return this.uncompletedTodos.length;
+    },
+    addLike(args) {
+      this.$emit('add-like', args);
     },
   },
   components: {
