@@ -10,7 +10,7 @@
         <span class="counter" v-else-if="countUncompleted() === 1">Всего одна невыполненная задача</span>
         <span class="counter" v-else>Осталось сделать задач: {{ countUncompleted() }}</span>
         <transition name="fade">
-          <img v-bind:src="require('@/assets/finger.jpg')" v-show="countUncompleted() === 0">
+          <img v-bind:src="require('@/assets/finger.jpg')" v-show="countUncompleted() === 0" alt="finger">
         </transition>
       </div>
     </div>
@@ -23,7 +23,7 @@
     </div>
     <div class="list">
       <h3>Выполненные</h3>
-      <List v-bind:todos="completedTodos"></List>
+      <List v-bind:todos="completedTodos" v-bind:isDone=true></List>
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
   props: ['todos', 'myMessage', 'show'],
   computed: {
     uncompletedTodos () {
-      return this.todos.filter(todo => !todo.isCompleted)
+      return this.todos.filter(todo => !todo.isCompleted);
     },
     completedTodos () {
       return this.todos.filter(todo => todo.isCompleted);

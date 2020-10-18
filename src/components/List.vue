@@ -1,17 +1,17 @@
 <template>
-  <span>
+  <div>
     <div class="item" v-for="todo in todos" v-bind:key="todo.title">
-    <span class="deleteTodo" v-on:click="removeTodo(todo.title)">&#10005;</span>
-    <input type="checkbox" v-model="todo.isCompleted">
-    <span class="done">{{ todo.title }}</span>
+      <span class="deleteTodo" v-on:click="removeTodo(todo.title)">&#10005;</span>
+      <input type="checkbox" v-model="todo.isCompleted">
+      <span v-bind:class="{done: isDone}">{{ todo.title }}</span>
+    </div>
   </div>
-  </span>
 </template>
 
 <script>
 export default {
   name: "List",
-  props: ['todos'],
+  props: ['todos', 'isDone'],
   methods: {
     removeTodo (title) {
       this.$emit('remove-todo', title);
